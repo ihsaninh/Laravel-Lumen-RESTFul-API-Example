@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Feed;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class FeedController extends Controller
 {
     public function __construct()
     {
@@ -15,10 +16,10 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $users = User::all();
+            $feeds = Feed::with('user')->get();
             return response()->json([
-                'message' => 'Success Retrieved Users',
-                'users' => $users,
+                'message' => 'Success Retrieved Feeds',
+                'feeds' => $feeds,
             ], 200);
         } catch (\Exception $e) {
             return response()->json([
@@ -30,16 +31,21 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|min:3',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
+            'content' => 'required|min:1',
         ]);
         try {
-            $userData = $request->only(['name', 'email', 'password']);
-            $newUser = User::create($userData);
+            $content = $request->input('content');
+            $img = $request->input('img');
+            $user_id = Auth::id();    
+
+            $newFeed = Feed::create([
+                'content' => $content,
+                'img' => $img,
+                'user_id' => $user_id
+            ]);
             return response()->json([
-                'message' => 'Successed Create New User',
-                'user' => $newUser,
+                'message' => 'Successed Create New Feed',
+                'feed' => $newFeed,
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
@@ -51,15 +57,15 @@ class UserController extends Controller
     public function show($id)
     {
         try {
-            $user = User::find($id);
-            if ($user) {
+            $feed = Feed::with('user')->find($id);
+            if ($feed) {
                 return response()->json([
-                    'message' => 'Success Retrieved User',
-                    'user' => $user,
+                    'message' => 'Success Retrieved Feed',
+                    'feed' => $feed,
                 ], 200);
             } else {
                 return response()->json([
-                    'message' => 'User Not Found',
+                    'message' => 'Feed Not Found',
                 ], 404);
             }
         } catch (\Exception $e) {
@@ -72,22 +78,27 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required|min:3',
-            'email' => 'required|email',
-            'password' => 'required',
+            'content' => 'required|min:1',
         ]);
         try {
-            $user = User::find($id);
-            if ($user) {
-                $userData = $request->only(['name', 'email', 'password']);
-                $userUpdate = $user->update($userData);
+            $feed = Feed::find($id);
+            if ($feed) {
+                $content = $request->input('content');
+                $img = $request->input('img');
+                $user_id = Auth::id();  
+
+                $feedUpdate = $feed->update([
+                    'content' => $content,
+                    'img' => $img,
+                    'user_id' => $user_id
+                ]);
                 return response()->json([
                     'message' => 'Success Updated Data',
-                    'user' => $user,
+                    'feed' => $feed,
                 ], 200);
             } else {
                 return response()->json([
-                    'message' => 'User Not Found',
+                    'message' => 'Feed Not Found',
                 ], 404);
             }
         } catch (\Exception $e) {
@@ -100,15 +111,15 @@ class UserController extends Controller
     public function destroy($id)
     {
         try {
-            $user = User::find($id);
-            if ($user) {
-                $user->delete();
+            $feed = Feed::find($id);
+            if ($feed) {
+                $feed->delete();
                 return response()->json([
-                    'message' => 'Success Deleted User',
+                    'message' => 'Success Deleted feed',
                 ], 200);
             } else {
                 return response()->json([
-                    'message' => 'User Not Found',
+                    'message' => 'feed Not Found',
                 ], 404);
             }
         } catch (\Exception $e) {
