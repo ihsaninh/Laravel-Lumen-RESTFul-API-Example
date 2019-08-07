@@ -13,7 +13,6 @@ class UserController extends Controller
     {
         try {
             $users = User::all();
-
             return response()->json([
                 'message' => 'Success Retrieved Users',
                 'users' => $users,
@@ -27,13 +26,11 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'name' => 'required|min:3',
             'email' => 'required|email|unique:users',
             'phone_number' => 'required|min:11|unique:users',
         ]);
-
         try {
             $userData = $request->only(['name', 'email', 'phone_number']);
             $newUser = User::create($userData);
@@ -46,10 +43,9 @@ class UserController extends Controller
                 'message' => 'Internal server error',
             ], 500);
         }
-
     }
 
-    public function show($id) 
+    public function show($id)
     {
         try {
             $user = User::find($id);
@@ -62,7 +58,7 @@ class UserController extends Controller
                 return response()->json([
                     'message' => 'User Not Found',
                 ], 404);
-            }         
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Internal server error',
@@ -111,7 +107,7 @@ class UserController extends Controller
                 return response()->json([
                     'message' => 'User Not Found',
                 ], 404);
-            }     
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Internal server error',
