@@ -12,14 +12,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     public function questions()
     {
-        return $this->belongsToMany('App\Questions')
-                    ->as('answers')
-                    ->withPivot('answer', 'attachment')
-                    ->withTimestamps();
+        return $this->belongsToMany('App\Question');
     }
 
     use Authenticatable, Authorizable;
-
     /**
      * The attributes that are mass assignable.
      *

@@ -17,3 +17,7 @@ $router->get('/', function () use ($router) {
 
 $router->get('/users', 'UserController@index');
 $router->post('/users', 'UserController@store');
+$router->get('/questions', 'QuestionController@index');
+$router->get('/question', 'QuestionController@show');
+$router->get('/answers', 'AnswerController@index');
+$router->post('/answers', 'AnswerController@store');
