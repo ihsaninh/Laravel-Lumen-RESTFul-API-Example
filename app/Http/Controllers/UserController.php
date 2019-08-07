@@ -35,7 +35,7 @@ class UserController extends Controller
             $userData = $request->only(['name', 'email', 'phone_number']);
             $newUser = User::create($userData);
             return response()->json([
-                'message' => 'success register new user',
+                'message' => 'Successed Register New User',
                 'data' => $newUser,
             ], 201);
         } catch (\Exception $e) {
