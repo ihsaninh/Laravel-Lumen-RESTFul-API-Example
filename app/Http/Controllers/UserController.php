@@ -51,7 +51,7 @@ class UserController extends Controller
     public function show($id)
     {
         try {
-            $user = User::find($id);
+            $user = User::with('feeds')->find($id);
             if ($user) {
                 return response()->json([
                     'message' => 'Success Retrieved User',
