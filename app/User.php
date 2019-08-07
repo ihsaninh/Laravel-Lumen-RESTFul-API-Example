@@ -10,10 +10,6 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    public function questions()
-    {
-        return $this->belongsToMany('App\Question');
-    }
 
     use Authenticatable, Authorizable;
     /**
@@ -22,7 +18,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone_number'
+        'name', 'email', 'password', 'token'
     ];
 
     /**
@@ -31,5 +27,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
+        'password', 'token'
     ];
 }

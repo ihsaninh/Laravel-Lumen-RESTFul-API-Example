@@ -8,6 +8,10 @@ use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -29,14 +33,14 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|min:3',
             'email' => 'required|email|unique:users',
-            'phone_number' => 'required|min:11|unique:users',
+            'password' => 'required',
         ]);
         try {
-            $userData = $request->only(['name', 'email', 'phone_number']);
+            $userData = $request->only(['name', 'email', 'password']);
             $newUser = User::create($userData);
             return response()->json([
-                'message' => 'Successed Register New User',
-                'data' => $newUser,
+                'message' => 'Successed Create New User',
+                'user' => $newUser,
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
@@ -52,7 +56,7 @@ class UserController extends Controller
             if ($user) {
                 return response()->json([
                     'message' => 'Success Retrieved User',
-                    'data' => $user,
+                    'user' => $user,
                 ], 200);
             } else {
                 return response()->json([
@@ -71,16 +75,16 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|min:3',
             'email' => 'required|email',
-            'phone_number' => 'required|min:11',
+            'password' => 'required',
         ]);
         try {
             $user = User::find($id);
             if ($user) {
-                $userData = $request->only(['name', 'email', 'phone_number']);
+                $userData = $request->only(['name', 'email', 'password']);
                 $userUpdate = $user->update($userData);
                 return response()->json([
                     'message' => 'Success Updated Data',
-                    'data' => $user,
+                    'user' => $user,
                 ], 200);
             } else {
                 return response()->json([
