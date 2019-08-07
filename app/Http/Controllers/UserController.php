@@ -85,7 +85,7 @@ class UserController extends Controller
                 return response()->json([
                     'message' => 'Success Updated Data',
                     'data' => $user,
-            ], 200);
+                ], 200);
             } else {
                 return response()->json([
                     'message' => 'User Not Found',
