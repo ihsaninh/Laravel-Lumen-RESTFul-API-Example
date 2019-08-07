@@ -22,7 +22,7 @@ class CreateFeedsTable extends Migration
         });
 
         Schema::table('feeds', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');;;
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
