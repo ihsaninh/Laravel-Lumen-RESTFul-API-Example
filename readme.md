@@ -2,6 +2,23 @@
 
 Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
 
+## Features
+
+Available Endpoint
+
+    1. UserRoutes
+    
+    - GET /users - Fetch all users resource
+    - POST /users - Create a new user resource
+    - GET /users/{user} — Fetch a user resource by id
+    - PUT /users/{user} — Update a user resource by id
+    - DELETE /users/{user}- Delete a user resource by id
+    
+    2. AuthRoutes
+    
+    - POST /register - register new user
+    - POST /login - login user
+
 ## How To Run
 
 You can follow step bellow to run this project
