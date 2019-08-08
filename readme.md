@@ -6,7 +6,7 @@ Laravel Lumen is a stunningly fast PHP micro-framework for building web applicat
 
 Available Endpoint
 
-    1. UserRoutes
+    1. User Routes
     
     - GET /users - Fetch all users resource
     - POST /users - Create a new user resource
@@ -14,7 +14,15 @@ Available Endpoint
     - PUT /users/{user} — Update a user resource by id
     - DELETE /users/{user}- Delete a user resource by id
     
-    2. AuthRoutes
+    2. Feed Routes
+
+    - GET /feeds - Fetch all feeds resource
+    - POST /feeds - Create a new feed resource
+    - GET /feeds/{feed} — Fetch a feed resource by id
+    - PUT /feeds/{feed} — Update a feed resource by id
+    - DELETE /feeds/{feed}- Delete a feed resource by id
+    
+    3. Auth Routes
     
     - POST /register - register new user
     - POST /login - login user
